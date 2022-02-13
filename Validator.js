@@ -123,8 +123,8 @@ function username(){
     if (username==="null" || username==="" || username.length > 12 ) {
         errorMessages += "<p>The username is required and cannot be greater than 12 characters</p>";
         console.log("Usernmae invalid — length")
-        } else if (username.match("^[a-zA-Z ,.'-]+$")===null) {
-            errorMessages += "<p>Invalid caracter in username (accepts only A-Z, a-z, and ,.'-)</p>";
+        } else if (username.match("^[a-zA-Z0-9 ,.'-]+$")===null) {
+            errorMessages += "<p>Invalid caracter in username (accepts only 0-9, A-Z, a-z, and ,.'-)</p>";
             console.log("Username invalid — bad characters")
         } else {
                 validUsername = true;
@@ -226,12 +226,13 @@ function zipcode(){
     var validZipCode=false;
 
     //2) read value from HTML
+    var zipcode = document.getElementById("ZipCode").value;
     var country = document.getElementById("country").value;
     var errorMessages = "";
 
     //3) Do validation
     if (country === "USA" || zipcode.length > 5) {
-        errorMessages += "<p>The zipcode is required and cannot be greater than 7 characters</p>";
+        errorMessages += "<p>The zipcode is required and cannot be greater than 5 characters</p>";
         console.log("ZipCode invalid — length")
         } else if (zipcode.match("^[0-9]+$")===null) {
             errorMessages += "<p>Invalid caracter in zipcode (accepts 0-9)</p>";
