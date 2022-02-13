@@ -234,7 +234,7 @@ function zipcode(){
     if (country === "USA"){
             validZipCode = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
             console.log("ZipCode valid")
-        } else if (zipcode.match("^[0-9]+$")===null) {
+        } else if (zipcode.match("^[0-9]+$")===null || zipcode==="null" || zipcode==="") {
             errorMessages += "<p>Invalid caracter in zipcode (accepts 0-9)</p>";
             console.log("ZipZode invalid — bad characters")
         } else {
