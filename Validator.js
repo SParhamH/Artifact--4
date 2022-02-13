@@ -226,14 +226,15 @@ function zipcode(){
     var validZipCode=false;
 
     //2) read value from HTML
+    regexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
     var zipcode = document.getElementById("ZipCode").value;
     var country = document.getElementById("country").value;
     var errorMessages = "";
 
     //3) Do validation
-    if (country === "USA" || zipcode.length > 5) {
-        errorMessages += "<p>The zipcode is required and cannot be greater than 5 characters</p>";
-        console.log("ZipCode invalid — length")
+    if (country === "USA" || regexp.test(str)) {
+            validZipCode = true;
+            console.log("ZipCode valid")
         } else if (zipcode.match("^[0-9]+$")===null) {
             errorMessages += "<p>Invalid caracter in zipcode (accepts 0-9)</p>";
             console.log("ZipZode invalid — bad characters")
