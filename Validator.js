@@ -94,10 +94,11 @@ function email(){
 
 Phone.addEventListener('blur', phone, false);
 function phone(){
+    var numbers=/^[0-9]+$/;
     var validPhone=false;
     var errorMessages = "";
     var phone = document.getElementById("Phone").value;
-    if (isNaN(phone) || phone.lenght >15 || phone===null || phone==="") {
+    if (isNaN(phone) || phone.lenght >15 || phone===null || phone===""|| !phone.match(numbers)) {
         errorMessages += "<p>Please enter your phone number.</p>";
         console.log("Phone invalid — length")
 
@@ -221,6 +222,7 @@ function city(){
     return (validCity);
 };
 
+ZipCode.addEventListener('blur', country, false);
 function zipcode(){
     //1) Create variable
     var validZipCode=false;
@@ -234,12 +236,9 @@ function zipcode(){
     if (country === "USA"){
             validZipCode = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
             console.log("ZipCode valid")
-        } else if (zipcode.match("^[0-9]+$")===null || zipcode==="null" || zipcode==="") {
-            errorMessages += "<p>Invalid caracter in zipcode (accepts 0-9)</p>";
-            console.log("ZipZode invalid — bad characters")
-        } else {
+        }
+         else {
                 validZipCode = true;
-                console.log("ZipCode valid")
         };
     
     //4) Send error message to HTML
