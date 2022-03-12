@@ -1,17 +1,18 @@
 function isValid() {
-    if (firstName(),
-        lastName(),
-        email(),
-        phone(),
-        username(),
-        password(),
-        address(),
-        city(),
+    if (firstName() &&
+        lastName() &&
+        email() &&
+        phone() &&
+        username() &&
+        password() &&
+        address() &&
+        city() &&
+        country() &&
         zipcode()
     )
     return true;
     else
-        document.getElementById("submiterror").innerHTML = "<p><strong>Error Submitting — See Above</strong></p>";
+        document.getElementById("submitError").innerHTML = "<p><strong>Error Submitting — See Above</strong></p>";
         event.preventDefault();
         return false;
 }
@@ -98,14 +99,26 @@ function phone(){
     var validPhone=false;
     var errorMessages = "";
     var phone = document.getElementById("Phone").value;
-    if (isNaN(phone) || phone.lenght >15 || phone===null || phone===""|| !phone.match(numbers)) {
+    if (isNaN(phone)) {
         errorMessages += "<p>Please enter your phone number.</p>";
         console.log("Phone invalid — length")
-
-        } else {
-                validPhone = true;
-                console.log("Phone valid")
-        };
+    }
+    else if (phone.lenght >15 || phone.lenght <10) {
+        errorMessages += "<p>Please enter your phone number.</p>";
+        console.log("Phone invalid — length")
+    }
+    else if(phone===null || phone==="") {
+        errorMessages += "<p>Please enter your phone number.</p>";
+        console.log("Phone invalid — length")
+    }
+    else if (!phone.match(numbers)) {
+        errorMessages += "<p>Please enter your phone number.</p>";
+        console.log("Phone invalid — length")
+    }
+    else {
+        validPhone = true;
+        console.log("Phone valid")
+    };
 
     document.getElementById("pe").innerHTML = errorMessages;
 
@@ -221,8 +234,33 @@ function city(){
     //5) return status of each field
     return (validCity);
 };
+country.addEventListener('blur', country, false);
+function country(){
+    var validCountry=false;
 
-ZipCode.addEventListener('blur', country, false);
+    //2) read value from HTML
+    var country = document.getElementById("country").value;
+    var errorMessages = "";
+
+    //3) Do validation
+    if (country==="null" || country==="") {
+        errorMessages += "<p>The country is required</p>";
+        console.log("country invalid — length")
+        } else if (country.match("^[a-zA-Z ,.'-]+$")===null) {
+            errorMessages += "<p>Invalid caracter in country (accepts only A-Z, a-z, and ,.'-)</p>";
+            console.log("country invalid — bad characters")
+        } else {
+                validCountry = true;
+                console.log("country valid")
+        };
+
+    //4) Send error message to HTML
+    document.getElementById("ct").innerHTML = errorMessages;
+
+    //5) return status of each field
+    return (validCountry);
+}
+ZipCode.addEventListener('blur', zipcode, false);
 function zipcode(){
     //1) Create variable
     var validZipCode=false;
@@ -231,14 +269,25 @@ function zipcode(){
     var zipcode = document.getElementById("ZipCode").value;
     var country = document.getElementById("country").value;
     var errorMessages = "";
+    var validZipCode = /^[0-9]{5}(?:-[0-9]{4})?$/;
 
     //3) Do validation
     if (country === "USA"){
-            validZipCode = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
-            console.log("ZipCode valid")
+        if (zipcode === "null" || zipcode === ""){
+            errorMessages += "<p>Enter your zipcode </p>";
+            console.log("ZipCode invalid")
         }
-         else {
-                validZipCode = true;
+        else if(zipcode.match(validZipCode) === null){
+            errorMessages += "<p>Enter your zipcode </p>";
+            console.log("ZipCode invalid")
+        }
+        else{
+            validZipCode = true;
+            console.log("ZipCode valid")    
+        };
+    }
+    else {
+        validZipCode = true;
         };
     
     //4) Send error message to HTML
